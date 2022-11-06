@@ -1,7 +1,7 @@
-const minQuote = (str, { debug=false, backtick=true } = { backtick: false, debug: false }) => {
+const minQuote = (str, { debug=false, backtick=true } = { backtick: true, debug: false }) => {
   if (debug) console.log("[min-quote] starting with str:", [str]);
-  let quotechars = ["'", '"', "`"];
-  let numQuotes = quotechars.length;
+  const quotechars = backtick ? ["'", '"', "`"] : ["'", '"'];
+  const numQuotes = quotechars.length;
   let selection;
   for (let i = 0; i < numQuotes; i++) {
     const char = quotechars[i];
@@ -15,10 +15,11 @@ const minQuote = (str, { debug=false, backtick=true } = { backtick: false, debug
     result = selection + str + selection;
   } else {
     // chose the quote that would require the least amount of escaping
-    const counts = { "'": 0, '"': 0, "`": 0 };
+    const counts = { "'": 0, '"': 0 };
+    if (backtick) counts["`"] = 0;
     for (let i = 0; i < str.length; i++) {
       const char = str[i];
-      if (char === "'" || char === '"' || char === "`") {
+      if (char === "'" || char === '"' || (backtick && char === "`")) {
         counts[char]++;
       }
     }

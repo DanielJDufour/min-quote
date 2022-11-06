@@ -36,4 +36,7 @@ test("quote backticks", ({ eq }) => {
   eq(quoted, "`It's what it's. \\` \\` \"'\"'\"'\"'\"'`");
 });
 
-
+test("no backtick", ({ eq }) => {
+  const quoted = minQuote(`"Don't count the days, make the days count." - Muhammad Ali`, { backtick: false });
+  eq(quoted, "'\"Don\\'t count the days, make the days count.\" - Muhammad Ali'");
+});
