@@ -30,7 +30,7 @@ const minQuote = (str, { debug=false, backtick=true } = { backtick: false, debug
     if (notBackticks.length >= 1) selection = notBackticks[0][0];
     else selection = candidates[0][0];
     if (debug) console.log("[min-quote] selection:", selection);
-    result = selection + str.replace(selection, "\\" + selection) + selection;
+    result = selection + str.replaceAll(selection, "\\" + selection) + selection;
   }
   return result;
 };

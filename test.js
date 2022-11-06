@@ -21,4 +21,19 @@ test("fallback", ({ eq }) => {
   eq(quoted, '\'It\\\'s saying "backtick is `"\'');
 });
 
+test("multiple", ({ eq }) => {
+  const quoted = minQuote(`It's what it's.`, { debug: false });
+  eq(quoted, "\"It's what it's.\"");
+});
+
+test("multiple backtick", ({ eq }) => {
+  const quoted = minQuote(`It's what it's.  Here's a quote "bla bla bla".`, { backtick: true, debug: false });
+  eq(quoted, "`It's what it's.  Here's a quote \"bla bla bla\".`");
+});
+
+test("quote backticks", ({ eq }) => {
+  const quoted = minQuote(`It's what it's. \` \` "'"'"'"'"'`, { backtick: true, debug: false });
+  eq(quoted, "`It's what it's. \\` \\` \"'\"'\"'\"'\"'`");
+});
+
 
